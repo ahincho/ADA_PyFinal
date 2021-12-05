@@ -1,108 +1,108 @@
+package ADA_PyFinal.Codigo;
 
-import java.util.LinkedList;
+import java.util.*;
 
-//Representacion de un Grafo mediante una Lista de Adyacencia
+public class Grafo<E> {
 
-public class Grafo<T> {
-	
-	// Atributos de la clase Grafo
-	
-	protected LinkedList<Vertice<T>> listaVertices;
-	
-	// Constructor de la clase Grafo
-	
-	public Grafo() {
-		
-		setVertices();
-		
-	}
-	
-	// Setters y getters de la clase Grafo
-	
-	public LinkedList<Vertice<T>> getVertices() {
-		
-		return this.listaVertices;
-		
-	}
-	
-	public void setVertices() {
-		
-		this.listaVertices = new LinkedList<Vertice<T>>();
-		
-	}
-	
-	// Metodos de la clase Grafo
-	
-	// Metodo para insertar Vertices en el Grafo
-	
-	public void insertarVertice(T data) {
-		
-		Vertice<T> nuevo = new Vertice<T>(data);
-		
-		if(getVertices().contains(nuevo)) {
-			
-			System.out.println("El Vertice ya existe ...");
-			return;
-			
-		} else {
-			
-			getVertices().addLast(nuevo);
-			
-		}
-	}
-	
-	// Metodo para insertar Aristas en el Grafo
-	
-	public void insertarArista(T origen, T destino) {
-		
-		insertarArista(origen, destino, -1);
-		
-	}
-	
-	// Metodo auxiliar para insertar Aristas en el Grafo
-	
-	public void insertarArista(T origen, T destino, int peso) {
-		
-		Vertice<T> o = new Vertice<T>(origen);
-		Vertice<T> d = new Vertice<T>(destino);
-		
-		// Buscar si existen los Vertices que se quieren unir
-		
-		int indexOrigen = getVertices().indexOf(o);
-		int indexDestino = getVertices().indexOf(d);
-		
-		// En caso de no existir alguno de los dos Vertices mandar un mensaje
-		if(indexOrigen == -1 || indexDestino == -1) {
-			
-			System.out.println("El Vertice de origen y/o destino no existen ...");
-			return;
-			
-		}
-		
-		Vertice<T> refOrigen = getVertices().get(indexOrigen);
-		Vertice<T> refDestino = getVertices().get(indexDestino);
-		
-		// Buscar si existe una Arista ya registrada entre los dos Vertices
-		if(refOrigen.getLista().contains(new Arista<T>(refDestino))) {
-			
-			System.out.println("Ya existe una Arista entre los Vertices ...");
-			return;
-			
-		}
-		
-		// En otro caso, valido, insertar la Arista entre los Vertices
-		refOrigen.getLista().addLast(new Arista<T>(refDestino));
-		refDestino.getLista().addLast(new Arista<T>(refOrigen));
-		
-	}
-	
-	// Metodo toString que devuelve el contenido del Grafo
-	
-	@Override
-	public String toString() {
-		
-		return "Contenido del Grafo:\n" + getVertices();
-		
-	}
-	
+    protected ListEnlazada<Vertice<E>> listVert;
+
+    public Grafo() {
+        listVert = new ListEnlazada<Vertice<E>>();
+    }
+
+    public void insertVert(E data) {
+        Vertice<E> nuevo = new Vertice<E>(data);
+        if (this.listVert.contiene(nuevo) != null) {
+            System.out.println("Vertice ya insertado");
+            return;
+        }
+        this.listVert.agregar(nuevo);
+    }
+
+    public void insertArista(E verOrig, E verDest, boolean dirig) {
+        insertArista(verOrig, verDest, -1, dirig);
+    }
+
+    public void insertArista(E verOrig, E verDest, int weight, boolean dirig) {
+        Vertice<E> refOrig = this.listVert.contiene(new Vertice<E>(verOrig)).valor;
+        Vertice<E> refDest = this.listVert.contiene(new Vertice<E>(verDest)).valor;
+
+        if (refOrig == null || refDest == null) {
+            System.out.println("Vertice origen / dest no existe");
+            return;
+        }
+        if (refOrig.listArt.contiene(new Arista<E>(refDest)) != null) {
+            System.out.println("Arista ya insertada");
+            return;
+        }
+        if (dirig) { //si el enlace sera dirigido o no
+            refOrig.listArt.agregar(new Arista<E>(refDest, weight));
+        } else {
+            refOrig.listArt.agregar(new Arista<E>(refDest, weight));
+            refDest.listArt.agregar(new Arista<E>(refOrig, weight));
+        }
+    }
+
+    private void initLabel() {
+        Enlace<Vertice<E>> aux = this.listVert.cabeza();
+        for (; aux != null; aux = aux.siguiente) {
+            aux.valor.label = 0;
+            Enlace<Arista<E>> auxE = aux.valor.listArt.cabeza();
+            for (; auxE != null; auxE = auxE.siguiente) {
+                auxE.valor.label = 0;
+            }
+        }
+
+    }
+
+    public void Dijkstra(E info) {
+        PriorityQueue<Vertice<E>> q = new PriorityQueue<Vertice<E>>();
+
+        Vertice<E> u = this.listVert.contiene(new Vertice<E>(info)).valor;
+
+        Enlace<Vertice<E>> aux = this.listVert.cabeza();
+        for (; aux != null; aux = aux.siguiente) {
+            if (aux.valor == u) {
+                aux.valor.dist = 0;
+            } else {
+                aux.valor.dist = 9999;
+            }
+            aux.valor.path = null;
+            aux.valor.label = 0;
+            q.add(aux.valor);
+        }
+
+        while (!q.isEmpty()) {
+            u = q.poll();
+            u.label = 1;
+            Enlace<Arista<E>> e = u.listArt.cabeza();
+            for (; e != null; e = e.siguiente) {
+                Vertice<E> z = e.valor.refDest;
+                if (z.label == 0) {
+                    if (z.dist > (u.dist + e.valor.weight)) {
+                        z.dist = u.dist + e.valor.weight;
+                        z.path = u;
+                    }
+                }
+            }
+        }
+        printDijkstra();
+    }
+
+    public void printDijkstra() {
+        Enlace<Vertice<E>> aux = this.listVert.cabeza();
+        System.out.println("\nVertex\t\tDistance\tPath");
+        for (; aux != null; aux = aux.siguiente) {
+            Vertice<E> ver = aux.valor;
+            if (ver.path != null) {
+                System.out.println(ver.data + "\t\t" + ver.dist + "\t\t" + ver.path.data);
+            } else {
+                System.out.println(ver.data + "\t\t" + ver.dist + "\t\t --");
+            }
+        }
+    }
+
+    public String toString() {
+        return this.listVert.toString();
+    }
 }
