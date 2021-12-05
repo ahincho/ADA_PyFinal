@@ -43,18 +43,6 @@ public class Grafo<E> {
         }
     }
 
-    private void initLabel() {
-        Enlace<Vertice<E>> aux = this.listVert.cabeza();
-        for (; aux != null; aux = aux.siguiente) {
-            aux.valor.label = 0;
-            Enlace<Arista<E>> auxE = aux.valor.listArt.cabeza();
-            for (; auxE != null; auxE = auxE.siguiente) {
-                auxE.valor.label = 0;
-            }
-        }
-
-    }
-
     public void Dijkstra(E info) {
         PriorityQueue<Vertice<E>> q = new PriorityQueue<Vertice<E>>();
 
