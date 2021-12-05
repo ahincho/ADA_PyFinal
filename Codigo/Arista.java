@@ -1,95 +1,33 @@
+package ADA_PyFinal.Codigo;
 
-public class Arista<T> {
-	
-	// Atributos de la clase Arista
-	
-	protected Vertice<T> destino;
-	protected int peso;
-	protected int label; // 0 => Sin explorar, 1 => Descubierta, 2 => Back
-	
-	// Constructores de la clase Arista
-	
-	public Arista(Vertice<T> destino) {
-		
-		this(destino, -1);
-		
-	}
-	
-	public Arista(Vertice<T> destino, int peso) {
-		
-		setDestino(destino);
-		setPeso(peso);
-		
-	}
-	
-	// Setters y getters
-	
-	public Vertice<T> getDestino() {
-		
-		return this.destino;
-		
-	}
-	
-	public void setDestino(Vertice<T> destino) {
-		
-		this.destino = destino;
-		
-	}
-	
-	public int getPeso() {
-		
-		return this.peso;
-		
-	}
-	
-	public void setPeso(int peso) {
-		
-		this.peso = peso;
-		
-	}
-	
-	public int getLabel() {
-		
-		return this.label;
-		
-	}
-	
-	public void setLabel(int label) {
-		
-		this.label = label;
-		
-	}
-	
-	// Metodos de la clase Arista
-	
-	@SuppressWarnings("unchecked")
-	public boolean equals(Object obj) {
-		
-		if(obj instanceof Arista<?>) {
-			
-			Arista<T> arista = (Arista<T>) obj;
-			return getDestino().equals(arista.getDestino());
-			
-		}
-		
-		return false;
-		
-	}
-	
-	//Metodo toString, devuelve el contenido de la Arista
-	
-	@Override
-	public String toString() {
-		
-		if(getPeso() > -1) {
-			
-			return getDestino() + " (" + getPeso() + "), ";
-			
-		} else {
-			
-			return getDestino().getData() + ", ";
-			
-		}
-	}
-	
+public class Arista<E> {
+
+    protected Vertice<E> refDest; //referencia al vertice
+    protected int weight; //peso en caso de ponderado
+    protected int label; // para algoritmos
+
+    public Arista(Vertice<E> refDest) {
+        this(refDest, -1);
+    }
+
+    public Arista(Vertice<E> refDest, int weight) {
+        this.refDest = refDest;
+        this.weight = weight;
+    }
+
+    public boolean equals(Object o) {
+        if (o instanceof Arista<?>) {
+            Arista e = (Arista<E>) o;
+            return this.refDest.equals(e.refDest);
+        }
+        return false;
+    }
+
+    public String toString() {
+        if (this.weight > -1) {
+            return refDest.data + " <" + label + "> [" + this.weight + "], ";
+        } else {
+            return refDest.data + " <" + label + ">, ";
+        }
+    }
 }
