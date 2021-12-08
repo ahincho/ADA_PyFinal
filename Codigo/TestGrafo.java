@@ -10,31 +10,38 @@ public class TestGrafo {
         Grafo<String> g1 = new Grafo<String>();
 
         //TEST DIJKSTRA 
-        g.insertVert("V0");
-        g.insertVert("V1");
-        g.insertVert("V2");
-        g.insertVert("V3");
-        g.insertVert("V4");
-        g.insertVert("V5");
-        g.insertVert("V6");
-        g.insertVert("V7");
+        g.insertVert("Arequipa");
+        g.insertVert("Camana  ");
+        g.insertVert("Caraveli");
+        g.insertVert("Castilla");
+        g.insertVert("Caylloma");
+        g.insertVert("Condesuyos");
+        g.insertVert("Islay   ");
+        g.insertVert("La Union");
+        String[] ciudades 
+                = {"Arequipa","Camana  "
+                  ,"Caraveli","Castilla"
+                  ,"Caylloma","Condesuyos"
+                  ,"Islay   ","La Union",};
+        
+        int[][] caminos 
+            = {{999,175,383,177,167,227,124,369},
+            {177,999,209,123,296,173,112,315},
+            {385,210,999,331,503,380,320,360},
+            {179,123,331,999,297,50,213,192},
+            {163,295,503,297,999,347,277,400},
+            {228,173,380,50,347,999,262,142},
+            {125,112,320,213,275,262,999,405},
+            {371,315,523,192,400,142,405,999},};
+        
+        for(int i = 0; i < caminos.length ; i++)
+            for(int j = 0; j < caminos[0].length; j++)
+                g.insertArista(ciudades[i]
+                        , ciudades[j]
+                        , caminos[i][j]
+                        ,true);
 
-        g.insertArista("V0", "V1", 4, true);
-        g.insertArista("V0", "V4", 2, true);
-        g.insertArista("V1", "V2", 1, true);
-        g.insertArista("V2", "V4", 3, true);
-        g.insertArista("V2", "V3", 5, true);
-        g.insertArista("V3", "V6", 2, true);
-        g.insertArista("V3", "V7", 1, true);
-        g.insertArista("V4", "V1", 1, true);
-        g.insertArista("V4", "V5", 2, true);
-        g.insertArista("V5", "V2", 6, true);
-        g.insertArista("V5", "V6", 3, true);
-        g.insertArista("V5", "V3", 3, true);
-        g.insertArista("V6", "V7", 7, true);
-
-        g.Dijkstra("V0");
-        System.out.println("\n"+g);
+        g.Dijkstra("La Union");
 
         /*
         g.insertVert("lima");

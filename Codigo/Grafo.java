@@ -79,7 +79,7 @@ public class Grafo<E> {
 
     public void printDijkstra() {
         Enlace<Vertice<E>> aux = this.listVert.cabeza();
-        System.out.println("\nVertex\t\tDistance\tPath");
+        System.out.println("\nVertex\t\tDistance(km)\tPath");
         for (; aux != null; aux = aux.siguiente) {
             Vertice<E> ver = aux.valor;
             if (ver.path != null) {
