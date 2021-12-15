@@ -7,8 +7,12 @@ public class Grafico extends JFrame implements ActionListener{
   JMenuBar bar; // barra de menus
   JMenu acerca; //  menu
   JMenuItem proyect; // items del menu
-  JLabel image, content;
-  ImageIcon aqp;
+  JLabel image, content; 
+  JPanel panel;
+  ImageIcon aqp; // imagen de aqp
+  // seleccionadores de las cuidades
+  JComboBox origin;
+  JComboBox destiny;
 
   public Grafico() {
     setSize(1060, 3600); // size del frame
@@ -34,6 +38,20 @@ public class Grafico extends JFrame implements ActionListener{
     image = new JLabel(aqp); 
     image.setBounds(100,150,350,226); // estableciendo posicion
     add(image); // agregando la imagen
+    panel = new JPanel();
+    panel.setBounds(600, 100, 350, 400);
+    panel.setBackground(new Color(0,0,0));
+    //add(panel);
+
+    // comboBox para la sellecion de la cuidad de origen y la cuidad destino
+    String [] cities = {"Arequipa","Camana","Caraveli","Castilla","Caylloma","Condesuyos","Islay","La Union"};
+    origin = new JComboBox<>(cities);
+    origin.setBounds(640, 100, 320, 30);
+    add(origin);
+
+    destiny = new JComboBox<>(cities);
+    destiny.setBounds(640, 300, 320, 30);
+    add(destiny);
 
 
   }
