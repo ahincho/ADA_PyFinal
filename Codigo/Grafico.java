@@ -13,6 +13,7 @@ public class Grafico extends JFrame implements ActionListener{
   // seleccionadores de las cuidades
   JComboBox origin;
   JComboBox destiny;
+  JButton search; // creacion de boton
 
   public Grafico() {
     setSize(1060, 3600); // size del frame
@@ -40,9 +41,9 @@ public class Grafico extends JFrame implements ActionListener{
     image.setBounds(100,150,350,226); // estableciendo posicion
     add(image); // agregando la imagen
     panel = new JPanel();
-    panel.setBounds(600, 100, 350, 400);
+    panel.setBounds(640, 400, 320, 100);
     panel.setBackground(new Color(0,0,0));
-    //add(panel);
+    add(panel);
 
     // comboBox para la sellecion de la cuidad de origen y la cuidad destino
     String [] cities = {"Arequipa","Camana","Caraveli","Castilla","Caylloma","Condesuyos","Islay","La Union"};
@@ -52,7 +53,7 @@ public class Grafico extends JFrame implements ActionListener{
     add(origin);
 
     destiny = new JComboBox<>(cities);
-    destiny.setBounds(640, 300, 320, 30);
+    destiny.setBounds(640, 200, 320, 30);
     destiny.addActionListener(this);
     add(destiny);
 
@@ -71,6 +72,9 @@ public class Grafico extends JFrame implements ActionListener{
     }
     if(e.getSource() == destiny){
       System.out.println(destiny.getSelectedItem());
+      if(origin.getSelectedItem() == destiny.getSelectedItem()){
+        System.out.println("No pueden ser el mismo");
+      }
     }
 
   }
