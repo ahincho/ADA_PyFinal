@@ -21,6 +21,7 @@ public class Grafico extends JFrame implements ActionListener{
     setDefaultCloseOperation(EXIT_ON_CLOSE); // la opcion de cerrado mediante un 'X' en la parte superior derecha
     createContent();
     setVisible(true); // para que pueda ser visible
+    setLocationRelativeTo(null); // para que aparesca al centro de la pantalla
 
   }
 
@@ -47,10 +48,12 @@ public class Grafico extends JFrame implements ActionListener{
     String [] cities = {"Arequipa","Camana","Caraveli","Castilla","Caylloma","Condesuyos","Islay","La Union"};
     origin = new JComboBox<>(cities);
     origin.setBounds(640, 100, 320, 30);
+    origin.addActionListener(this);
     add(origin);
 
     destiny = new JComboBox<>(cities);
     destiny.setBounds(640, 300, 320, 30);
+    destiny.addActionListener(this);
     add(destiny);
 
 
@@ -62,6 +65,12 @@ public class Grafico extends JFrame implements ActionListener{
           "- Hincho Jove, Angel Eduardo\n" +
           "- Neira Carraco, Darwin Jesus\n" +
           "El codigo puede ser visualizado en el siguiente enlace https://github.com/ahincho/ADA_PyFinal.git");
+    }
+    if(e.getSource() == origin){
+      System.out.println(origin.getSelectedItem());
+    }
+    if(e.getSource() == destiny){
+      System.out.println(destiny.getSelectedItem());
     }
 
   }
