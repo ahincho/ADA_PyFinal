@@ -42,7 +42,7 @@ public class Grafo<E> {
         }
     }
 
-    public void Dijkstra(E info, E destiny) {
+    public int Dijkstra(E info, E destiny) {
         PriorityQueue<Vertice<E>> q = new PriorityQueue<Vertice<E>>();
 
         Vertice<E> u = this.listVert.contiene(new Vertice<E>(info)).valor;
@@ -75,7 +75,7 @@ public class Grafo<E> {
         }
         printDijkstra();
         System.out.println("salida unica");
-        distance(destiny);
+        return distance(destiny);
     }
 
     public void printDijkstra() {
@@ -91,16 +91,18 @@ public class Grafo<E> {
         }
     }
 
-    public void distance(E destiny){
+    public int distance(E destiny){
         Enlace<Vertice<E>> aux = this.listVert.cabeza();
-        //System.out.println("\nVertex\t\tDistance(km)\tPath");
+        int dist = 0;
         for (; aux != null; aux = aux.siguiente) {
             Vertice<E> ver = aux.valor;
             if (ver.data == destiny) {
                 System.out.println(ver.data + "\t\t" + ver.dist);
+                dist = ver.dist;
                 break;
             }
         }
+        return dist;
     }
 
     public String toString() {
