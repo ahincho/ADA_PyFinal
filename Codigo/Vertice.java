@@ -1,4 +1,3 @@
-package ADA_PyFinal.Codigo;
 
 public class Vertice<E> implements Comparable<Vertice<E>> {
 

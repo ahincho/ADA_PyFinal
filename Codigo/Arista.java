@@ -1,4 +1,3 @@
-package ADA_PyFinal.Codigo;
 
 public class Arista<E> {
 
