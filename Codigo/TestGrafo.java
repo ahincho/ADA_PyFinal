@@ -3,9 +3,9 @@ public class TestGrafo {
 
     public static void main(String[] args) {
         Grafo<String> g = new Grafo<String>();
-        Grafo<String> g1 = new Grafo<String>();
+        g = g.fillIn();
 
-        //TEST DIJKSTRA 
+        /*TEST DIJKSTRA 
         g.insertVert("Arequipa");
         g.insertVert("Camana  ");
         g.insertVert("Caraveli");
@@ -35,9 +35,8 @@ public class TestGrafo {
                 g.insertArista(ciudades[i]
                         , ciudades[j]
                         , caminos[i][j]
-                        ,true);
+                        ,true);*/
 
-        g.Dijkstra("La Union");
-
+        g.Dijkstra("La Union", "Arequipa");
     }
 }
