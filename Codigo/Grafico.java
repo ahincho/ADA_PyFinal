@@ -68,6 +68,7 @@ public class Grafico extends JFrame implements ActionListener{
 
   }
   public void actionPerformed(ActionEvent e){
+    // Contribuidores al proyecto
     if(e.getSource() == proyect){
       JOptionPane.showMessageDialog(null, "El siguientre trabajo es un proyecto colabarotivo entre:\n" + 
           "- Chavez Caceres, Samir Diego\n" +
