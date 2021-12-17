@@ -115,18 +115,18 @@ public class Grafo<E> {
 
         //TEST DIJKSTRA 
         g.insertVert("Arequipa");
-        g.insertVert("Camana  ");
+        g.insertVert("Camana");
         g.insertVert("Caraveli");
         g.insertVert("Castilla");
         g.insertVert("Caylloma");
         g.insertVert("Condesuyos");
-        g.insertVert("Islay   ");
+        g.insertVert("Islay");
         g.insertVert("La Union");
         String[] ciudades 
-                = {"Arequipa","Camana  "
+                = {"Arequipa","Camana"
                   ,"Caraveli","Castilla"
                   ,"Caylloma","Condesuyos"
-                  ,"Islay   ","La Union",};
+                  ,"Islay","La Union",};
         
         int[][] caminos 
             = {{999,175,383,177,167,227,124,369},
