@@ -1,5 +1,4 @@
 
-import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 public class Grafico extends JFrame implements ActionListener{
@@ -39,33 +38,33 @@ public class Grafico extends JFrame implements ActionListener{
     // imagen de arequipa con sus provincias
     aqp = new ImageIcon("../Image/aqp.jpg"); // imagen de arequipa
     image = new JLabel(aqp); 
-    image.setBounds(100,150,350,226); // estableciendo posicion
+    image.setBounds(50,100,350,226); // estableciendo posicion
     add(image); // agregando la imagen
 
     //texto para identificar el comboBox
     selectOrigin = new JLabel("Selecciona el lugar de partida");
-    selectOrigin.setBounds(640, 70, 320, 20);
+    selectOrigin.setBounds(480, 70, 320, 20);
     add(selectOrigin);
     // comboBox para la sellecion de la cuidad de origen y la cuidad destino
     String [] cities = {"Arequipa","Camana","Caraveli","Castilla","Caylloma","Condesuyos","Islay","La Union"};
     origin = new JComboBox<>(cities);
-    origin.setBounds(640, 100, 320, 30);
+    origin.setBounds(480, 100, 320, 30);
     origin.addActionListener(this);
     add(origin);
 
     //texto para identificar el comboBox
     selectDestiny = new JLabel("Selecciona el lugar de llegada");
-    selectDestiny.setBounds(640, 170, 320, 20);
+    selectDestiny.setBounds(480, 170, 320, 20);
     add(selectDestiny);
 
     destiny = new JComboBox<>(cities);
-    destiny.setBounds(640, 200, 320, 30);
+    destiny.setBounds(480, 200, 320, 30);
     destiny.addActionListener(this);
     add(destiny);
 
     // boton para validadr los datos
     search = new JButton("Buscar menor ruta");
-    search.setBounds(640,300, 320, 30);
+    search.setBounds(480,300, 320, 30);
     search.addActionListener(this);
     add(search);
 
