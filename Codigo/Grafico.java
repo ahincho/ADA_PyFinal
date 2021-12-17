@@ -7,8 +7,7 @@ public class Grafico extends JFrame implements ActionListener{
   JMenuBar bar; // barra de menus
   JMenu acerca; //  menu
   JMenuItem proyect; // items del menu
-  JLabel image, content; 
-  JPanel panel;
+  JLabel image, selectOrigin, selectDestiny; 
   ImageIcon aqp; // imagen de aqp
   // seleccionadores de las cuidades
   JComboBox origin;
@@ -18,7 +17,7 @@ public class Grafico extends JFrame implements ActionListener{
 
   public Grafico() {
     g = g.fillIn();
-    setSize(1060, 3600); // size del frame
+    setSize(860, 560); // size del frame
     setLayout(null);
     setTitle("Interface Proyecto final ADA"); // estableciendo el titulo
     setDefaultCloseOperation(EXIT_ON_CLOSE); // la opcion de cerrado mediante un 'X' en la parte superior derecha
@@ -42,17 +41,22 @@ public class Grafico extends JFrame implements ActionListener{
     image = new JLabel(aqp); 
     image.setBounds(100,150,350,226); // estableciendo posicion
     add(image); // agregando la imagen
-    panel = new JPanel();
-    panel.setBounds(640, 400, 320, 100);
-    //panel.setBackground(new Color(0,0,0));
-    add(panel);
 
+    //texto para identificar el comboBox
+    selectOrigin = new JLabel("Selecciona el lugar de partida");
+    selectOrigin.setBounds(640, 70, 320, 20);
+    add(selectOrigin);
     // comboBox para la sellecion de la cuidad de origen y la cuidad destino
     String [] cities = {"Arequipa","Camana","Caraveli","Castilla","Caylloma","Condesuyos","Islay","La Union"};
     origin = new JComboBox<>(cities);
     origin.setBounds(640, 100, 320, 30);
     origin.addActionListener(this);
     add(origin);
+
+    //texto para identificar el comboBox
+    selectDestiny = new JLabel("Selecciona el lugar de llegada");
+    selectDestiny.setBounds(640, 170, 320, 20);
+    add(selectDestiny);
 
     destiny = new JComboBox<>(cities);
     destiny.setBounds(640, 200, 320, 30);
@@ -64,7 +68,6 @@ public class Grafico extends JFrame implements ActionListener{
     search.setBounds(640,300, 320, 30);
     search.addActionListener(this);
     add(search);
-
 
   }
   public void actionPerformed(ActionEvent e){
@@ -79,11 +82,14 @@ public class Grafico extends JFrame implements ActionListener{
     if(e.getSource() == search){
       if(origin.getSelectedIndex() == destiny.getSelectedIndex()){ // evitamos que sean el mismo
         System.out.println("No pueden ser el mismo"); // mensaje para hacer notar al usuario
+        JOptionPane.showMessageDialog(null, "NO puede ser la misma cuidad");
       }
       else {
         System.out.println("Aceptado"); // encaso se valido
         // aplicamos el algorimo
-        System.out.println( g.Dijkstra((String)origin.getSelectedItem(), (String)destiny.getSelectedItem()) );
+        //System.out.println( g.Dijkstra((String)origin.getSelectedItem(), (String)destiny.getSelectedItem()) );
+        int x = g.Dijkstra((String)origin.getSelectedItem(), (String)destiny.getSelectedItem());
+        JOptionPane.showMessageDialog(null, x + " km sera la distancia recorrida en auto");
       }
     }
 
