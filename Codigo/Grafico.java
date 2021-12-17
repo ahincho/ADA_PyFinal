@@ -14,8 +14,10 @@ public class Grafico extends JFrame implements ActionListener{
   JComboBox origin;
   JComboBox destiny;
   JButton search; // creacion de boton
+  static Grafo<String> g = new Grafo<String>();
 
   public Grafico() {
+    g = g.fillIn();
     setSize(1060, 3600); // size del frame
     setLayout(null);
     setTitle("Interface Proyecto final ADA"); // estableciendo el titulo
@@ -42,7 +44,7 @@ public class Grafico extends JFrame implements ActionListener{
     add(image); // agregando la imagen
     panel = new JPanel();
     panel.setBounds(640, 400, 320, 100);
-    panel.setBackground(new Color(0,0,0));
+    //panel.setBackground(new Color(0,0,0));
     add(panel);
 
     // comboBox para la sellecion de la cuidad de origen y la cuidad destino
@@ -57,6 +59,12 @@ public class Grafico extends JFrame implements ActionListener{
     destiny.addActionListener(this);
     add(destiny);
 
+    // boton para validadr los datos
+    search = new JButton("Buscar menor ruta");
+    search.setBounds(640,300, 320, 30);
+    search.addActionListener(this);
+    add(search);
+
 
   }
   public void actionPerformed(ActionEvent e){
@@ -67,13 +75,14 @@ public class Grafico extends JFrame implements ActionListener{
           "- Neira Carraco, Darwin Jesus\n" +
           "El codigo puede ser visualizado en el siguiente enlace https://github.com/ahincho/ADA_PyFinal.git");
     }
-    if(e.getSource() == origin){
-      System.out.println(origin.getSelectedItem());
-    }
-    if(e.getSource() == destiny){
-      System.out.println(destiny.getSelectedItem());
-      if(origin.getSelectedItem() == destiny.getSelectedItem()){
-        System.out.println("No pueden ser el mismo");
+    if(e.getSource() == search){
+      if(origin.getSelectedIndex() == destiny.getSelectedIndex()){ // evitamos que sean el mismo
+        System.out.println("No pueden ser el mismo"); // mensaje para hacer notar al usuario
+      }
+      else {
+        System.out.println("Aceptado"); // encaso se valido
+        // aplicamos el algorimo
+        System.out.println( g.Dijkstra((String)origin.getSelectedItem(), (String)destiny.getSelectedItem()) );
       }
     }
 
